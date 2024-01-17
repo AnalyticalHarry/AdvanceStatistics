@@ -1,4 +1,4 @@
-# YouTubeStatistics
+# Python Statistics
 
 1.	Measures of Central Tendency:
 •	Mean, Median, and Mode: Definitions, calculation methods, and interpretation.
