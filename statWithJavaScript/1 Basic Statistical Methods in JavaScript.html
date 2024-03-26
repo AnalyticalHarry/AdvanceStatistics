@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Interactive Array Statistics</title>
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                text-align: center;
+            }
+            .container {
+                background: #ffffff;
+                padding: 40px 60px;
+                border-radius: 12px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                max-width: 500px;
+                width: 100%;
+            }
+            h2 {
+                color: #333;
+                margin-bottom: 20px;
+            }
+            input, button {
+                padding: 12px 20px;
+                margin: 8px 0;
+                border-radius: 20px;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
+                transition: all 0.3s ease;
+            }
+            input:focus, button:focus {
+                outline: none;
+                border-color: #007bff;
+            }
+            input {
+                width: calc(100% - 24px);
+            }
+            button {
+                cursor: pointer;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                width: calc(100% - 24px);
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+            button:hover {
+                background-color: #0056b3;
+            }
+            p {
+                color: #666;
+                line-height: 1.6;
+                margin: 5px 0;
+            }
+            .result {
+                background-color: #f9f9f9;
+                margin: 10px 0;
+                padding: 10px;
+                border-radius: 8px;
+                box-shadow: inset 0 0 5px rgba(0,0,0,0.03);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Array Statistics Calculator</h2>
+            <input type="text" id="numbersInput"
+                placeholder="Enter numbers separated by commas">
+            <button onclick="calculateStatistics()">Calculate</button>
+            <p id="mean">Mean: -</p>
+            <p id="minMax">Min/Max: -</p>
+            <p id="median">Median: -</p>
+            <p id="standardDeviation">Standard Deviation: -</p>
+            <p id="variance">Variance: -</p>
+            <p id="mode">Mode: -</p>
+        </div>
+
+        <script>
+        function calculateStatistics() {
+            let numString = document.getElementById('numbersInput').value;
+            let numArray = numString.split(',').map(function(item) {
+                return parseFloat(item.trim());
+            });
+
+            document.getElementById('mean').innerHTML = `Mean: ${calculateMean(numArray).toFixed(2)}`;
+            document.getElementById('minMax').innerHTML = `Min/Max: ${calculateMinMax(numArray).join(' / ')}`;
+            document.getElementById('median').innerHTML = `Median: ${calculateMedian(numArray).toFixed(2)}`;
+            document.getElementById('standardDeviation').innerHTML = `Standard Deviation: ${calculateStandardDeviation(numArray).toFixed(2)}`;
+            document.getElementById('variance').innerHTML = `Variance: ${calculateVariance(numArray).toFixed(2)}`;
+            document.getElementById('mode').innerHTML = `Mode: ${calculateMode(numArray).join(', ')}`;
+        }
+
+        function calculateMean(num) {
+            return num.reduce((acc, val) => acc + val, 0) / num.length;
+        }
+
+        function calculateMinMax(num) {
+            return [Math.min(...num), Math.max(...num)];
+        }
+
+        function calculateMedian(num) {
+            const sorted = [...num].sort((a, b) => a - b);
+            const mid = Math.floor(sorted.length / 2);
+            return sorted.length % 2 !== 0 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+        }
+
+        function calculateStandardDeviation(num) {
+            const mean = calculateMean(num);
+            return Math.sqrt(num.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / num.length);
+        }
+
+        function calculateVariance(num) {
+            const mean = calculateMean(num);
+            return num.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / num.length;
+        }
+
+        function calculateMode(numArray) {
+            let frequencyMap = {};
+            let maxFrequency = 0;
+            let modes = [];
+
+            numArray.forEach(num => {
+                frequencyMap[num] = (frequencyMap[num] || 0) + 1;
+                if (frequencyMap[num] > maxFrequency) {
+                    maxFrequency = frequencyMap[num];
+                }
+            });
+
+            for (let num in frequencyMap) {
+                if (frequencyMap[num] === maxFrequency) {
+                    modes.push(parseInt(num));
+                }
+            }
+
+            return modes;
+        }
+
+    </script>
+    </body>
+</html>
