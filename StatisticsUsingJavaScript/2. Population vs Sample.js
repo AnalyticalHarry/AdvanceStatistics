@@ -27,7 +27,7 @@ Advantages: More efficient and cost-effective. Allows for generalizations about 
 Disadvantages: Risk of sampling bias if not done properly. The sample may not always perfectly represent the population.
 */
 
-// Population Array of student names
+// population Array of student names
 const students = [
     'Harry', 'Alice', 'Shopie', 
     'David', 'Lewis', 'Arthur', 
