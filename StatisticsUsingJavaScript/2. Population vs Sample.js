@@ -39,16 +39,15 @@ const students = [
 function getRandomSample(population, sampleSize) {
     // copy of the population array
     const populationCopy = [...population];
-    
     // shuffle the copy using Fisher-Yates algorithm
     for (let i = populationCopy.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [populationCopy[i], populationCopy[j]] = [populationCopy[j], populationCopy[i]];
     }
-    
     // return the first `sampleSize` elements from the shuffled array
     return populationCopy.slice(0, sampleSize);
 }
+
 // sample size
 const sampleSize = 3;
 // get random sample
@@ -57,3 +56,18 @@ console.log("Population:", students);
 console.log("Sample:", sample);
 
 
+
+
+// Arrow function for solving same problem
+const getRandomSample = (population, sampleSize) => {
+    const populationCopy = [...population];
+    for (let i = populationCopy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [populationCopy[i], populationCopy[j]] = [populationCopy[j], populationCopy[i]];
+    }
+    return populationCopy.slice(0, sampleSize);
+};
+const sampleSize = 3;
+const sample = getRandomSample(students, sampleSize);
+console.log("Population:", students);
+console.log("Sample:", sample);
