@@ -71,3 +71,9 @@ const sampleSize = 3;
 const sample = getRandomSample(students, sampleSize);
 console.log("Population:", students);
 console.log("Sample:", sample);
+
+/*
+Author: Hemant Thapa
+Date: 08.09.2024
+Stat Using JavaScript
+*/
